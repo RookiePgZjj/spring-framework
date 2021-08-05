@@ -137,6 +137,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 		Executor executor = getTaskExecutor();
 		for (ApplicationListener<?> listener : getApplicationListeners(event, type)) {
 			if (executor != null) {
+				/* 通知监听器 */
 				executor.execute(() -> invokeListener(listener, event));
 			}
 			else {
@@ -173,6 +174,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	private void doInvokeListener(ApplicationListener listener, ApplicationEvent event) {
 		try {
+			// 将应用事件通知监听器
 			listener.onApplicationEvent(event);
 		}
 		catch (ClassCastException ex) {
